@@ -1,54 +1,24 @@
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Student s1 = new Student("Arl Benedict", 20, "OOP", 85, 78, 92);
+        Student s2 = new Student("Mikko Navarro", 19, "Platform Technology", 80, 72, 90);
+        Student s3 = new Student("Linux Orbeta", 18, "Ethics", 54, 58, 60);
 
+        Student[] students = {s1, s2, s3};
+        int passingCount = 0;
 
-        System.out.println("Enter Student Information:");
-        System.out.print("1. Student ID: ");
-        String studentId = scanner.nextLine();
-        System.out.print("2. First Name: ");
-        String firstName = scanner.nextLine();
-        System.out.print("3. Last Name: ");
-        String lastName = scanner.nextLine();
-        System.out.print("4. Course: ");
-        String course = scanner.nextLine();
-        System.out.print("5. Section: ");
-        String section = scanner.nextLine();
+        for (Student s : students) {
+            s.displayInfo();
+            double avg = s.calculateAverage();
+            System.out.printf("Average: %.2f\n", avg);
+            String letter = s.getLetterGrade();
+            System.out.println("Letter Grade: " + letter);
+            boolean passing = s.isPassing();
+            System.out.println("Status: " + (passing ? "PASSING" : "FAILING"));
+            System.out.println();
+            if (passing) passingCount++;
+        }
 
-
-        System.out.println("\nSTUDENT INFORMATION");
-        System.out.println("Student Id: " + studentId);
-        System.out.println("Student name: " + firstName + " " + lastName);
-        System.out.println("Course: " + course);
-        System.out.println("Section: " + section);
-
-
-        System.out.println("\nEnter Scores:");
-        System.out.print("1. Midterm Exam Score: ");
-        int midtermScore = scanner.nextInt();
-        System.out.print("2. Final Exam Score: ");
-        int finalScore = scanner.nextInt();
-        System.out.print("3. Project Score: ");
-        int projectScore = scanner.nextInt();
-        System.out.print("4. Attendance Percentage: ");
-        int attendanceScore = scanner.nextInt();
-
-
-        int allOverScore = midtermScore + finalScore + projectScore + attendanceScore;
-        double averageScore = allOverScore / 400.0 * 100;
-        String remarks = (averageScore >= 75) ? "PASSED" : "FAILED";
-
-
-        System.out.println("\nSTUDENT SCORE");
-        System.out.println("Midterm Exam Score: " + midtermScore);
-        System.out.println("Final Exam Score: " + finalScore);
-        System.out.println("Project Score: " + projectScore);
-        System.out.println("Attendance Score: " + attendanceScore);
-        System.out.printf("\nAverage Score: %.2f\n", averageScore);
-        System.out.println("Remarks: " + remarks);
-
-        scanner.close();
+        System.out.println("Summary: Total number of students who are passing: " + passingCount);
     }
 }
