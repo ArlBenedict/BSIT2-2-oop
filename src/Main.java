@@ -3,7 +3,7 @@ public class Main {
         GradeCalculator calculator = new GradeCalculator();
 
         String studentName = "John Smith";
-        double[] grades = {85.5, 92.0, 85.5, 90.0};
+        double[] grades = {85.5, 92.0, 78.5, 90.0};
 
         double average = calculator.calculateAverage(grades);
         String letterGrade = calculator.getLetterGrade(average);
@@ -13,3 +13,4 @@ public class Main {
         calculator.displayResult(studentName, average, letterGrade);
     }
 }
+
