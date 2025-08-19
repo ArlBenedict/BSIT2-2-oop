@@ -1,54 +1,42 @@
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Bank Name: " + BankAccount.bankName);
+        System.out.println("Interest Rate: " + (BankAccount.interestRate * 100) + "%\n");
 
 
-        System.out.println("Enter Student Information:");
-        System.out.print("1. Student ID: ");
-        String studentId = scanner.nextLine();
-        System.out.print("2. First Name: ");
-        String firstName = scanner.nextLine();
-        System.out.print("3. Last Name: ");
-        String lastName = scanner.nextLine();
-        System.out.print("4. Course: ");
-        String course = scanner.nextLine();
-        System.out.print("5. Section: ");
-        String section = scanner.nextLine();
+        BankAccount acc1 = new BankAccount("John Doe", 1000.0);
+        System.out.printf("Account Created: %s for %s with initial balance: $%.1f\n",
+                acc1.getAccountNumber(), acc1.getAccountHolderName(), acc1.getBalance());
+
+        BankAccount acc2 = new BankAccount("Jane Smith", 2500.0);
+        System.out.printf("Account Created: %s for %s with initial balance: $%.1f\n",
+                acc2.getAccountNumber(), acc2.getAccountHolderName(), acc2.getBalance());
+
+        BankAccount acc3 = new BankAccount("Bob Johnson", 500.0);
+        System.out.printf("Account Created: %s for %s with initial balance: $%.1f\n",
+                acc3.getAccountNumber(), acc3.getAccountHolderName(), acc3.getBalance());
 
 
-        System.out.println("\nSTUDENT INFORMATION");
-        System.out.println("Student Id: " + studentId);
-        System.out.println("Student name: " + firstName + " " + lastName);
-        System.out.println("Course: " + course);
-        System.out.println("Section: " + section);
+        System.out.println("\n═══ Account Operations ═══");
+        acc1.deposit(500.0);
+        System.out.printf("%s deposited $500.0. New balance: $%.1f\n",
+                acc1.getAccountHolderName(), acc1.getBalance());
 
+        boolean withdrew = acc2.withdraw(300.0);
+        if (withdrew) {
+            System.out.printf("%s withdrew $300.0. New balance: $%.1f\n",
+                    acc2.getAccountHolderName(), acc2.getBalance());
+        } else {
+            System.out.printf("%s attempted to withdraw $300.0. Insufficient funds.\n",
+                    acc2.getAccountHolderName());
+        }
 
-        System.out.println("\nEnter Scores:");
-        System.out.print("1. Midterm Exam Score: ");
-        int midtermScore = scanner.nextInt();
-        System.out.print("2. Final Exam Score: ");
-        int finalScore = scanner.nextInt();
-        System.out.print("3. Project Score: ");
-        int projectScore = scanner.nextInt();
-        System.out.print("4. Attendance Percentage: ");
-        int attendanceScore = scanner.nextInt();
+        System.out.println("\n═══ Interest Calculation ═══");
+        System.out.printf("%s's interest: $%.1f\n", acc1.getAccountHolderName(), acc1.calculateInterest());
+        System.out.printf("%s's interest: $%.1f\n", acc2.getAccountHolderName(), acc2.calculateInterest());
+        System.out.printf("%s's interest: $%.1f\n", acc3.getAccountHolderName(), acc3.calculateInterest());
 
-
-        int allOverScore = midtermScore + finalScore + projectScore + attendanceScore;
-        double averageScore = allOverScore / 400.0 * 100;
-        String remarks = (averageScore >= 75) ? "PASSED" : "FAILED";
-
-
-        System.out.println("\nSTUDENT SCORE");
-        System.out.println("Midterm Exam Score: " + midtermScore);
-        System.out.println("Final Exam Score: " + finalScore);
-        System.out.println("Project Score: " + projectScore);
-        System.out.println("Attendance Score: " + attendanceScore);
-        System.out.printf("\nAverage Score: %.2f\n", averageScore);
-        System.out.println("Remarks: " + remarks);
-
-        scanner.close();
+        System.out.println("\nTotal Accounts Created: " + BankAccount.totalAccounts);
     }
 }
