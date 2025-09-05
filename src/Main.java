@@ -1,54 +1,60 @@
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        System.out.println("═══ Food Ordering System ═══\n");
+        System.out.println("Creating orders and adding items...");
 
+        Order order1 = new Order("Alice Johnson");
+        Order order2 = new Order("Bob Smith");
+        Order order3 = new Order("Charlie Brown");
 
-        System.out.println("Enter Student Information:");
-        System.out.print("1. Student ID: ");
-        String studentId = scanner.nextLine();
-        System.out.print("2. First Name: ");
-        String firstName = scanner.nextLine();
-        System.out.print("3. Last Name: ");
-        String lastName = scanner.nextLine();
-        System.out.print("4. Course: ");
-        String course = scanner.nextLine();
-        System.out.print("5. Section: ");
-        String section = scanner.nextLine();
+        try {
+            order1.addItem("Pizza", 8.25);
+            System.out.println("Item 'Pizza' added successfully");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
 
+        try {
+            order1.addMultipleItems(new String[]{"Burger", "Fries"}, 9.99, 6.50);
+            System.out.println("Items added: Burger, Fries");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
 
-        System.out.println("\nSTUDENT INFORMATION");
-        System.out.println("Student Id: " + studentId);
-        System.out.println("Student name: " + firstName + " " + lastName);
-        System.out.println("Course: " + course);
-        System.out.println("Section: " + section);
+        try {
+            order2.addItem("Salad", -5.00);
+            System.out.println("Item 'Salad' added successfully");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
 
+        try {
+            order2.addItem("", 7.50);
+            System.out.println("Item '' added successfully");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
 
-        System.out.println("\nEnter Scores:");
-        System.out.print("1. Midterm Exam Score: ");
-        int midtermScore = scanner.nextInt();
-        System.out.print("2. Final Exam Score: ");
-        int finalScore = scanner.nextInt();
-        System.out.print("3. Project Score: ");
-        int projectScore = scanner.nextInt();
-        System.out.print("4. Attendance Percentage: ");
-        int attendanceScore = scanner.nextInt();
+        order2.addMultipleItems(new String[]{"Burger", "Fries", "Pizza", "Soda", "Wings"}, 6.99, 4.50, 9.99, 3.99, 7.98);
+        order3.addMultipleItems(new String[]{"Sandwich", "Juice"}, 10.00, 5.50);
 
+        System.out.println();
 
-        int allOverScore = midtermScore + finalScore + projectScore + attendanceScore;
-        double averageScore = allOverScore / 400.0 * 100;
-        String remarks = (averageScore >= 75) ? "PASSED" : "FAILED";
+        System.out.println("Order Results:");
+        System.out.println(order1.displayOrder());
+        System.out.println(order2.displayOrder());
+        System.out.println(order3.displayOrder());
+        System.out.println();
 
+        System.out.println("Total orders created: " + Order.getTotalOrders());
 
-        System.out.println("\nSTUDENT SCORE");
-        System.out.println("Midterm Exam Score: " + midtermScore);
-        System.out.println("Final Exam Score: " + finalScore);
-        System.out.println("Project Score: " + projectScore);
-        System.out.println("Attendance Score: " + attendanceScore);
-        System.out.printf("\nAverage Score: %.2f\n", averageScore);
-        System.out.println("Remarks: " + remarks);
-
-        scanner.close();
+        Order[] allOrders = {order1, order2, order3};
+        Order maxOrder = allOrders[0];
+        for (Order o : allOrders) {
+            if (o.getTotalAmount() > maxOrder.getTotalAmount()) {
+                maxOrder = o;
+            }
+        }
+        System.out.printf("Largest order: %s ($%.2f)\n", maxOrder.getCustomerName(), maxOrder.getTotalAmount());
     }
 }
