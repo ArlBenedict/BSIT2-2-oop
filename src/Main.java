@@ -1,54 +1,34 @@
-import java.util.Scanner;
-
 public class Main {
+
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
 
-        System.out.println("Enter Student Information:");
-        System.out.print("1. Student ID: ");
-        String studentId = scanner.nextLine();
-        System.out.print("2. First Name: ");
-        String firstName = scanner.nextLine();
-        System.out.print("3. Last Name: ");
-        String lastName = scanner.nextLine();
-        System.out.print("4. Course: ");
-        String course = scanner.nextLine();
-        System.out.print("5. Section: ");
-        String section = scanner.nextLine();
+        PetService service = new PetService();
 
+        System.out.println("Basic checkup: $" + service.calculateFee());
+        System.out.println("Checkup with vaccination: $" + service.calculateFee(true));
+        System.out.println("Full service: $" + service.calculateFee(true, true));
+        System.out.println("Emergency: $" + service.calculateFee("urgent"));
 
-        System.out.println("\nSTUDENT INFORMATION");
-        System.out.println("Student Id: " + studentId);
-        System.out.println("Student name: " + firstName + " " + lastName);
-        System.out.println("Course: " + course);
-        System.out.println("Section: " + section);
+        System.out.println("Welcome to the Pet Clinic!");
+        System.out.println("============================");
 
+        Pet dog = new TrainableDog("Buddy", 3);
+        Pet cat = new Cat("Whiskers", 2);
+        Pet bird = new TrainableBird("Tweety", 1);
 
-        System.out.println("\nEnter Scores:");
-        System.out.print("1. Midterm Exam Score: ");
-        int midtermScore = scanner.nextInt();
-        System.out.print("2. Final Exam Score: ");
-        int finalScore = scanner.nextInt();
-        System.out.print("3. Project Score: ");
-        int projectScore = scanner.nextInt();
-        System.out.print("4. Attendance Percentage: ");
-        int attendanceScore = scanner.nextInt();
+        dog.displayInfo();
+        cat.displayInfo();
+        bird.displayInfo();
 
+        System.out.println("\nTraining Session Started!");
+        System.out.println("============================");
 
-        int allOverScore = midtermScore + finalScore + projectScore + attendanceScore;
-        double averageScore = allOverScore / 400.0 * 100;
-        String remarks = (averageScore >= 75) ? "PASSED" : "FAILED";
+        Trainable trainableDog = (TrainableDog) dog;
+        Trainable trainableBird = (TrainableBird) bird;
 
-
-        System.out.println("\nSTUDENT SCORE");
-        System.out.println("Midterm Exam Score: " + midtermScore);
-        System.out.println("Final Exam Score: " + finalScore);
-        System.out.println("Project Score: " + projectScore);
-        System.out.println("Attendance Score: " + attendanceScore);
-        System.out.printf("\nAverage Score: %.2f\n", averageScore);
-        System.out.println("Remarks: " + remarks);
-
-        scanner.close();
+        trainableDog.performTrick();
+        trainableBird.performTrick();
     }
 }
