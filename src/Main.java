@@ -1,54 +1,28 @@
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Book book1 = new Book("1984", "George Orwell", "1234567890", 1949);
+        Book book2 = new Book("To Kill a Mockingbird", "Harper Lee", "1234567890123", 1960);
+        Book book3 = new Book("The Great Gatsby", "F. Scott Fitzgerald", "0987654321", 1925);
 
+        Library library = new Library();
+        library.addBook(book1);
+        library.addBook(book2);
+        library.addBook(book3);
 
-        System.out.println("Enter Student Information:");
-        System.out.print("1. Student ID: ");
-        String studentId = scanner.nextLine();
-        System.out.print("2. First Name: ");
-        String firstName = scanner.nextLine();
-        System.out.print("3. Last Name: ");
-        String lastName = scanner.nextLine();
-        System.out.print("4. Course: ");
-        String course = scanner.nextLine();
-        System.out.print("5. Section: ");
-        String section = scanner.nextLine();
+        library.displayAllBooks();
 
+        System.out.println("Borrowing 1984: " + (library.borrowBook("1234567890") ? "Success" : "Failed"));
 
-        System.out.println("\nSTUDENT INFORMATION");
-        System.out.println("Student Id: " + studentId);
-        System.out.println("Student name: " + firstName + " " + lastName);
-        System.out.println("Course: " + course);
-        System.out.println("Section: " + section);
+        System.out.println("Borrowing 1984 again: " + (library.borrowBook("1234567890") ? "Success" : "Failed"));
 
+        System.out.println("Returning 1984: " + (library.returnBook("1234567890") ? "Success" : "Failed"));
 
-        System.out.println("\nEnter Scores:");
-        System.out.print("1. Midterm Exam Score: ");
-        int midtermScore = scanner.nextInt();
-        System.out.print("2. Final Exam Score: ");
-        int finalScore = scanner.nextInt();
-        System.out.print("3. Project Score: ");
-        int projectScore = scanner.nextInt();
-        System.out.print("4. Attendance Percentage: ");
-        int attendanceScore = scanner.nextInt();
+        library.displayAvailableBooks();
 
-
-        int allOverScore = midtermScore + finalScore + projectScore + attendanceScore;
-        double averageScore = allOverScore / 400.0 * 100;
-        String remarks = (averageScore >= 75) ? "PASSED" : "FAILED";
-
-
-        System.out.println("\nSTUDENT SCORE");
-        System.out.println("Midterm Exam Score: " + midtermScore);
-        System.out.println("Final Exam Score: " + finalScore);
-        System.out.println("Project Score: " + projectScore);
-        System.out.println("Attendance Score: " + attendanceScore);
-        System.out.printf("\nAverage Score: %.2f\n", averageScore);
-        System.out.println("Remarks: " + remarks);
-
-        scanner.close();
+        try {
+            Book invalidBook = new Book("", "", "123", 1400);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Validation test: " + e.getMessage());
+        }
     }
 }
